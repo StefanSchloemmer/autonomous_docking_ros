@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="cora">
+
+  <link name="base_link">
+  </link>
+
+  <joint name="dummy_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="dummy_link"/>
+    <!-- Adjust the visual/collision to match water height -->
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="dummy_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://cora_description/models/meshes/boat_amb_occ.dae"/>
+      </geometry>
+    </visual>
+
+    <collision name="collision">
+      <geometry>
+        <box size="6.2 2.54 1" />
+      </geometry>
+    </collision>
+
+    <!-- Numbers are from MeshLab -->
+    <inertial>
+      <mass value="2660"/>
+      <inertia ixx="20700.0" ixy="0.0" ixz="0.0" iyy="420000.0" iyz="0.0" izz="420000.0"/>
+    </inertial>
+  </link>
+
+</robot>

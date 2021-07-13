@@ -1,0 +1,71 @@
+from turtlebot3:
+-------------------------------
+node subscribers:
+Subscriptions: 
+ * /clock [rosgraph_msgs/Clock]
+ * /map [nav_msgs/OccupancyGrid]
+ * /move_base/cancel [unknown type]
+ * /move_base/global_costmap/footprint [geometry_msgs/PolygonStamped]
+ * /move_base/goal [move_base_msgs/MoveBaseActionGoal]
+ * /move_base/local_costmap/footprint [geometry_msgs/PolygonStamped]
+ * /move_base_simple/goal [geometry_msgs/PoseStamped]
+ * /odom [nav_msgs/Odometry]
+ * /scan [sensor_msgs/LaserScan]
+ * /tf [tf2_msgs/TFMessage]
+ * /tf_static [tf2_msgs/TFMessage]
+
+
+-------------------------------
+published topics:
+
+#############################################
+rostopic info map
+Type: nav_msgs/OccupancyGrid
+
+Publishers: 
+ * /map_server (http://stefan-usb-pc:39267/)
+
+Subscribers: 
+ * /rviz (http://stefan-usb-pc:40371/)
+ * /move_base (http://stefan-usb-pc:32987/)
+############################################
+rostopic info odom
+Type: nav_msgs/Odometry
+
+Publishers: 
+ * /gazebo (http://stefan-usb-pc:42803/)
+
+Subscribers: 
+ * /move_base (http://stefan-usb-pc:32987/)
+############################################
+rostopic info scan
+Type: sensor_msgs/LaserScan
+
+Publishers: 
+ * /gazebo (http://stefan-usb-pc:42803/)
+
+Subscribers: 
+ * /amcl (http://stefan-usb-pc:35737/)
+ * /rviz (http://stefan-usb-pc:40371/)
+ * /move_base (http://stefan-usb-pc:32987/)
+
+------------------------------------------------------
+mapserver_node:
+Node [/map_server]
+Publications: 
+ * /map [nav_msgs/OccupancyGrid]
+ * /map_metadata [nav_msgs/MapMetaData]
+ * /rosout [rosgraph_msgs/Log]
+
+Subscriptions: 
+ * /clock [rosgraph_msgs/Clock]
+
+Services: 
+ * /map_server/get_loggers
+ * /map_server/set_logger_level
+ * /static_map
+------------------------------------------------------
+
+Robot footprint:
+-> center = base_link
+-> 

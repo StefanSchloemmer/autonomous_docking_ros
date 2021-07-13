@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="namespace" default="cora"/>
+    <node pkg="vorc_gazebo" type="vel_cmd2thrust_angle.py" name="vel_cmd2thrust_angle" output="screen">
+      <remap from="main_thrust_angle" to="/$(arg namespace)/thrusters/main_thrust_angle"/>
+      <remap from="main_cmd" to="/$(arg namespace)/thrusters/main_thrust_cmd"/>
+    </node>
+</launch>

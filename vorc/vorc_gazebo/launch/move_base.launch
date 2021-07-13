@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="cmd_vel_topic" default="/cmd_vel" />
+  <arg name="map_topic" default="/map" />
+  <arg name="odom_topic" default="/cora/robot_localization/odometry/filtered" />
+  <arg name="scan_topic" default="/cora/sensors/lidars/front_lidar/scan" />
+  
+
+  <arg name="move_forward_only" default="false"/>
+
+  <!-- move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+    <rosparam file="$(find vorc_gazebo)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find vorc_gazebo)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find vorc_gazebo)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find vorc_gazebo)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find vorc_gazebo)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find vorc_gazebo)/param/dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find vorc_gazebo)/param/navfn_params.yaml" command="load" />
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+    <remap from="map" to="$(arg map_topic)"/>
+    <remap from="odom" to="$(arg odom_topic)"/>
+    <remap from="scan" to="$(arg scan_topic)"/>
+    <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" />
+  </node>
+  <!-- start vel2thrust -->
+  <!-- <include file="$(find vorc_gazebo)/launch/myvel2thrust.launch"></include> -->
+</launch>

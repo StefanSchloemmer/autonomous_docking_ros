@@ -1,0 +1,21 @@
+from pynput.keyboard import Key, Listener
+import time
+
+def on_press(key):
+    print('{0} pressed'.format(
+        key))
+
+def on_release(key):
+    print('{0} release'.format(
+        key))
+    if key == Key.esc:
+        # Stop listener
+        return False
+        
+glob_key = None
+
+
+
+if __name__ == "__main__":
+	while(1):
+		time.sleep(0.1)

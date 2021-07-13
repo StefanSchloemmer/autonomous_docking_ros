@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="cora">
+
+  <link name="base_link">
+  </link>
+
+  <joint name="dummy_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="dummy_link"/>
+    <!-- Adjust the visual/collision to match water height -->
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <link name="dummy_link">
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://cora_description/models/meshes/zodiac.dae"/>
+  	    <material>
+         <texture filename="package://cora_description/models/materials/texture/boat_texture.png"/>
+        </material>
+      </geometry>
+    </visual>
+
+    <collision name="collision">
+      <geometry>
+        <box size="6.2 2.54 1.0" />
+      </geometry>
+    </collision>
+
+    <!-- Mass is calculated based on an estimate of draft, the effective length and the cross-section of
+a circle segment. The value for the draft is consistent specifications of similar vessels.  Moments of inertia are based on an effective cylindrical model-->
+    <inertial>
+       <mass value="2660.0"/>
+       <inertia ixx="1123.0" ixy="0.0" ixz="0.0" iyy="6261.0" iyz="0.0" izz="7152.0"/>
+    </inertial>
+  </link>
+  
+</robot>

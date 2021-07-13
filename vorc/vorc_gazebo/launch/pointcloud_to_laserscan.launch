@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="lidar_topic" default="/cora/sensors/lidars/front_lidar" />
+    <arg name="set_target_frame" default="planar_lidar_link"/>
+    <arg name="fov_ang_deg" default="80.0"/>
+
+    <!-- launch new transform for virtual laser point without translation -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="planar_lidar_link_broadcaster" args="-0.595 0 5 0 0 0 base_link planar_lidar_link 100" /> -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="planar_lidar_link_broadcaster" args="3 0 0.6 0 0 0 base_link planar_lidar_link" />	
+
+    <!-- run pointcloud_to_laserscan node -->
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+
+        <remap from="cloud_in" to="$(arg lidar_topic)/points"/>
+        <remap from="scan"     to="$(arg lidar_topic)/scan"/>
+        <param name="target_frame" value="$(arg set_target_frame)"/>
+        <rosparam>
+            # target_frame:  # Leave disabled to output scan in pointcloud frame
+            transform_tolerance: 0.01
+            min_height: -10.0
+            max_height: 10.0
+
+            angle_min: -M_PI # -0.7 # -M_PI/2 # 0.0 # -1.5708 * $(arg fov_ang_deg) / 180.0 
+            angle_max:  M_PI #  0.7 #  M_PI/2 # 6.28318977355957 # 1.5708 * $(arg fov_ang_deg) / 180.0  
+            angle_increment: 0.006726 # M_PI/360.0 # 0.017501922324299812 # 
+            scan_time: 0.1
+            range_min: 6.0
+            range_max: 130.0
+            use_inf: true
+            inf_epsilon: 1.0
+
+            # Concurrency level, affects number of pointclouds queued for processing and number of threads used
+            # 0 : Detect number of cores
+            # 1 : Single threaded
+            # 2->inf : Parallelism level
+            concurrency_level: 1
+        </rosparam>
+
+    </node>
+
+</launch>
