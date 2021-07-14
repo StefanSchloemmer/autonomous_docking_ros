@@ -1,4 +1,4 @@
 NavfnROS:
 
 # Specifies whether or not to allow navfn to create plans that traverse unknown space
-  allow_unknown: true
+  allow_unknown: false

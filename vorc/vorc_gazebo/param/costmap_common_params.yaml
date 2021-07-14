@@ -8,5 +8,14 @@ inflation_radius: 2.0
 cost_scaling_factor: 3.0
 
 map_type: costmap
+
+obstacle_layer:
+ enabled: true
+ obstacle_range: 3.0
+ raytrace_range: 3.5
+ inflation_radius: 0.2
+ track_unknown_space: false
+ combination_method: 1
+
 observation_sources: scan
 scan: {sensor_frame: planar_lidar_link, data_type: LaserScan, topic: /cora/sensors/lidars/front_lidar/scan, marking: true, clearing: true}

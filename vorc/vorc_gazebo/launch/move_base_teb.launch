@@ -11,19 +11,36 @@
 
   <!-- move_base -->
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    
+    
     <rosparam file="$(find vorc_gazebo)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find vorc_gazebo)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find vorc_gazebo)/param/local_costmap_params.yaml" command="load" />
     <rosparam file="$(find vorc_gazebo)/param/global_costmap_params.yaml" command="load" />
     <rosparam file="$(find vorc_gazebo)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find vorc_gazebo)/param/teb_local_planner_params.yaml" command="load" />
     <!-- <rosparam file="$(find vorc_gazebo)/param/dwa_local_planner_params.yaml" command="load" /> -->
-    <rosparam file="$(find vorc_gazebo)/param/base_local_planner_params.yaml" command="load" />
-    <rosparam file="$(find vorc_gazebo)/param/navfn_params.yaml" command="load" />
-    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+    
     <remap from="map" to="$(arg map_topic)"/>
     <remap from="odom" to="$(arg odom_topic)"/>
     <remap from="scan" to="$(arg scan_topic)"/>
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+
+    <!-- global planner-->
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+		<param name="planner_frequency" value="1.0" />
+		<param name="planner_patience" value="5.0" />
+
+    
+    <!-- local planner-->
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="5.0" />
+		<param name="controller_patience" value="15.0" />
+    <param name="clearing_rotation_allowed" value="false" /> <!-- Our carlike robot is not able to rotate in place -->
+	
+    <!-- NAVFN Parameters - Specify path properties -->
+    <rosparam file="$(find vorc_gazebo)/param/navfn_params.yaml" command="load" />
+
     <!-- <param name="DWAPlannerROS/min_vel_x" value="0.0" if="$(arg move_forward_only)" /> -->
   </node>
   <!-- start vel2thrust -->
