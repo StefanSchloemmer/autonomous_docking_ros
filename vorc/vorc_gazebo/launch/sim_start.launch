@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- 1. start myMarina simulation -->
+    <include file="$(find vorc_gazebo)/launch/myMarina.launch"> 
+    </include>
+
+    <!-- 2. start move_base_teb = path planner (start TEB is second window to get goog debug outputs!) -->
+    <!-- <include file="$(find vorc_gazebo)/launch/move_base_teb.launch"> -->
+    <!-- </include> -->
+
+    <!-- 3. start myrviz visualisation in 2D -->
+    <include file="$(find vorc_gazebo)/launch/myrviz.launch"> 
+    </include>
+</launch>
